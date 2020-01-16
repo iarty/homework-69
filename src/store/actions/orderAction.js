@@ -1,6 +1,5 @@
 import {
-  ADD_TO_CART,
-  ORDER_MODAL_HANDLER,
+  ADD_TO_CART, CLEAR_ORDER,
   POST_ERROR,
   POST_REQUEST,
   POST_SUCCESS,
@@ -22,9 +21,9 @@ export const removeFromCart = payload => {
   };
 };
 
-export const modalHandler = () => {
+export const clearState = () => {
   return {
-    type: ORDER_MODAL_HANDLER
+    type: CLEAR_ORDER
   };
 };
 

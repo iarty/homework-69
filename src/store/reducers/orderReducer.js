@@ -1,6 +1,6 @@
 import {
   ADD_TO_CART,
-  ORDER_MODAL_HANDLER,
+  CLEAR_ORDER,
   POST_ERROR,
   POST_REQUEST,
   POST_SUCCESS,
@@ -10,7 +10,6 @@ import {
 const initialState = {
   cart: [],
   loading: false,
-  showModal: false,
   error: null
 };
 
@@ -45,10 +44,10 @@ export const orderReducer = (state = initialState, action) => {
         cart
       };
     }
-    case ORDER_MODAL_HANDLER: {
+    case CLEAR_ORDER: {
       return {
         ...state,
-        showModal: !state.showModal
+        cart: []
       };
     }
     case POST_REQUEST: {

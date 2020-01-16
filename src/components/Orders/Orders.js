@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import {
-  modalHandler,
+  clearState,
   postOrder,
   removeFromCart
 } from "../../store/actions/orderAction";
@@ -10,6 +10,7 @@ import { MDBBtn } from "mdbreact";
 import ModalForm from "../ModalForm/ModalForm";
 
 const Orders = props => {
+  const [modal, setModal] = useState(false);
   let totalPrice = 0;
   props.cart.forEach(el => {
     totalPrice += el.price * el.amount;
@@ -18,11 +19,12 @@ const Orders = props => {
   return (
     <div className="col-4">
       <ModalForm
-        show={props.showModal}
-        modalHandler={props.modalHandler}
+        show={modal}
+        modalHandler={setModal}
         order={props.cart}
         post={props.postOrder}
         loading={props.loading}
+        clear={props.clearState}
       />
       <fieldset className="border p-3 rounded border-secondary">
         <legend style={{ width: "22%" }}>Orders</legend>
@@ -51,7 +53,7 @@ const Orders = props => {
             className="float-right"
             color="secondary"
             size="sm"
-            onClick={props.modalHandler}
+            onClick={() => setModal(true)}
           >
             Place order
           </MDBBtn>
@@ -63,11 +65,10 @@ const Orders = props => {
 
 const mapStateToProps = state => ({
   cart: state.order.cart,
-  showModal: state.order.showModal,
   loading: state.order.loading
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ removeFromCart, modalHandler, postOrder }, dispatch);
+  bindActionCreators({ removeFromCart, postOrder, clearState }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Orders);

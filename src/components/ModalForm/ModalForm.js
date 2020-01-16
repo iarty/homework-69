@@ -9,7 +9,7 @@ import {
 import Spinner from "../UI/Spinner/Spinner";
 
 const ModalForm = props => {
-  const { show, modalHandler, order, post, loading } = props;
+  const { show, modalHandler, order, post, loading, clear } = props;
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
@@ -24,7 +24,8 @@ const ModalForm = props => {
 
   const sendOrder = async () => {
     await post(postData);
-    modalHandler();
+    modalHandler(false);
+    clear();
   };
 
   return (
@@ -77,7 +78,7 @@ const ModalForm = props => {
         <MDBBtn color="secondary" type="submit" size="sm" onClick={sendOrder}>
           Place order {loading && <Spinner small />}
         </MDBBtn>
-        <MDBBtn color="danger" onClick={modalHandler} size="sm">
+        <MDBBtn color="danger" onClick={() => modalHandler(false)} size="sm">
           Close
         </MDBBtn>
       </MDBModalFooter>
